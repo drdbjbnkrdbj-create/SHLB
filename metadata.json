@@ -1,0 +1,6 @@
+{
+  "name": "Streqa",
+  "description": "تطبيق تتبع عادات وتحديات متكامل بتصميم داكن فاخر، جداول نطاق زمني، وحفظ محلي موثوق وتنبيهات يومية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
