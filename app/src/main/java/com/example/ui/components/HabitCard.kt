@@ -3,6 +3,8 @@ package com.example.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -323,10 +325,15 @@ fun HabitCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Days horizontal row
+            val isMonthView = item.daySummaries.size > 7
+
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = if (isMonthView) {
+                    Modifier.horizontalScroll(rememberScrollState())
+                } else {
+                    Modifier.fillMaxWidth()
+                },
+                horizontalArrangement = if (isMonthView) Arrangement.spacedBy(4.dp) else Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 item.daySummaries.forEach { summary ->
@@ -335,7 +342,8 @@ fun HabitCard(
                         themeColor = themeColor,
                         onToggle = { onToggleDay(summary.dateStr) },
                         onOpenNote = { onOpenDayNote(summary) },
-                        modifier = Modifier.weight(1f)
+                        dayLabelFontSize = if (isMonthView) 9.sp else 10.sp,
+                        modifier = if (isMonthView) Modifier.width(48.dp) else Modifier.weight(1f)
                     )
                 }
             }

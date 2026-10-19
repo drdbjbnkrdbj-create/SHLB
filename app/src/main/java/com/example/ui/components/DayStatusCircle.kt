@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.model.DaySummary
@@ -37,6 +40,7 @@ fun DayStatusCircle(
     themeColor: Color,
     onToggle: () -> Unit,
     onOpenNote: () -> Unit,
+    dayLabelFontSize: TextUnit = 10.sp,
     modifier: Modifier = Modifier
 ) {
     val isDone = daySummary.status == HabitStatus.DONE
@@ -121,9 +125,13 @@ fun DayStatusCircle(
         Text(
             text = daySummary.dayOfWeekNameArabic,
             color = if (daySummary.isToday) themeColor else if (daySummary.isFuture) TextMuted else TextSecondary,
-            fontSize = 11.sp,
+            fontSize = dayLabelFontSize,
             fontWeight = if (daySummary.isToday) FontWeight.Bold else FontWeight.Normal,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            softWrap = false,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
